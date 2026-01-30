@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tellmewhoami.github.io/image/%E7%99%BD%E7%8E%89%E5%A1%94.jpg">
 <meta property="article:published_time" content="2026-01-03T06:38:24.000Z">
-<meta property="article:modified_time" content="2026-01-27T15:21:39.935Z">
+<meta property="article:modified_time" content="2026-01-30T13:49:53.154Z">
 <meta property="article:author" content="Hajime">
 <meta property="article:tag" content="-博客搭建">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hajime","sameAs":[]},"dateCreated":"2026-01-03T14:38:24+08:00","dateModified":"2026-01-27T23:21:39+08:00","datePublished":"2026-01-03T14:38:24+08:00","description":"","headline":"Markdown语法","mainEntityOfPage":{"@type":"WebPage","@id":"https://tellmewhoami.github.io/2026/01/03/My-first-blog/"},"publisher":{"@type":"Organization","name":"Hajime","sameAs":[]},"url":"https://tellmewhoami.github.io/2026/01/03/My-first-blog/","keywords":"-博客搭建","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hajime","sameAs":[]},"dateCreated":"2026-01-03T14:38:24+08:00","dateModified":"2026-01-30T21:49:53+08:00","datePublished":"2026-01-03T14:38:24+08:00","description":"","headline":"Markdown语法","mainEntityOfPage":{"@type":"WebPage","@id":"https://tellmewhoami.github.io/2026/01/03/My-first-blog/"},"publisher":{"@type":"Organization","name":"Hajime","sameAs":[]},"url":"https://tellmewhoami.github.io/2026/01/03/My-first-blog/","keywords":"-博客搭建","image":[]}</script>
   
 </head>
 <body>
@@ -81,7 +81,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-03T06:38:24.000Z">2026-01-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-01-27T15:21:39.935Z">2026-01-27</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-03T06:38:24.000Z">2026-01-03</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-01-30T13:49:53.154Z">2026-01-30</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -147,9 +147,9 @@
 
 <h3 id="html格式2"><a href="#html格式2" class="headerlink" title="html格式2"></a>html格式2</h3><div style="max-height: 300px; overflow-y: auto;">
 <table style="width: 100%;">
-  <thead style="position: sticky; top: 0; background: white;">
+  <thead style="position: sticky; top: 0;">
     <tr>
-      <th style="width: 100px; position: sticky; left: 0; background: white;">固定列</th>
+      <th style="width: 100px; position: sticky; left: 0;">固定列</th>
       <th style="width: 200px;">列2</th>
       <th style="width: 150px;">列3</th>
     </tr>
@@ -167,38 +167,43 @@
   border-collapse: collapse;
   margin: 20px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  font-size: 15px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1); /* 加深阴影，增强在深色背景的层次感 */
   border-radius: 8px;
   overflow: hidden;
 }
 
 .table-modern th {
-  background-color: #f8f9fa;
+  background-color: #f0f2f5; /* 稍深的浅灰色背景，确保在深色背景下突出 */
   padding: 16px 12px;
   text-align: left;
   font-weight: 600;
-  color: #333;
+  color: #222; /* 深色文字，确保可读性 */
   border-bottom: 2px solid #e9ecef;
 }
 
 .table-modern td {
+  background-color: #ffffff; /* 纯白背景，与深色背景形成对比 */
   padding: 14px 12px;
   border-bottom: 1px solid #e9ecef;
-  color: #555;
+  font-weight: 400;
+  color: #333; /* 深色文字 */
 }
 
 .table-modern tr:hover {
-  background-color: #f8f9ff;
+  background-color: #f5f7fa; /* 悬停时的浅灰色背景 */
 }
 
 .table-modern caption {
   caption-side: top;
-  padding: 12px;
+  padding: 12px; /* 增加内边距 */
   font-size: 16px;
   font-weight: bold;
-  color: #333;
-  background-color: #f8f9fa;
+  color: #222; /* 深色标题文字 */
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #f0f2f5; /* 与表头一致的浅灰色 */
+  border-bottom: 2px solid #d9dde3; /* 添加底部边框作为分隔线 */
 }
 </style>
 
@@ -231,107 +236,8 @@
   </tbody>
 </table>
 
-<p>斑马纹表格</p>
-<style>
-.table-zebra {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-zebra thead tr {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-}
-
-.table-zebra th {
-  padding: 16px;
-  text-align: left;
-  font-weight: 500;
-}
-
-.table-zebra tbody tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-.table-zebra tbody tr:nth-child(odd) {
-  background-color: white;
-}
-
-.table-zebra td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.table-zebra tbody tr:hover {
-  background-color: #e3f2fd !important;
-  transition: background-color 0.3s;
-}
-</style>
-
-<table class="table-zebra">
-  <caption>用户统计数据</caption>
-  <thead>
-    <tr>
-      <th>用户名</th>
-      <th>邮箱</th>
-      <th>注册时间</th>
-      <th>状态</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>张三</td>
-      <td>zhangsan@email.com</td>
-      <td>2024-01-15</td>
-      <td><span style="color: #28a745;">● 活跃</span></td>
-      <td><button style="padding: 4px 12px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">编辑</button></td>
-    </tr>
-    <tr>
-      <td>李四</td>
-      <td>lisi@email.com</td>
-      <td>2024-01-10</td>
-      <td><span style="color: #6c757d;">● 禁用</span></td>
-      <td><button style="padding: 4px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">编辑</button></td>
-    </tr>
-  </tbody>
-</table>
-
-<p>可排序列表</p>
-<script>
-function sortTable(columnIndex) {
-  const table = document.getElementById('sortable-table');
-  const rows = Array.from(table.querySelectorAll('tbody tr'));
-  
-  rows.sort((a, b) => {
-    const aText = a.children[columnIndex].textContent;
-    const bText = b.children[columnIndex].textContent;
-    return aText.localeCompare(bText);
-  });
-  
-  const tbody = table.querySelector('tbody');
-  tbody.innerHTML = '';
-  rows.forEach(row => tbody.appendChild(row));
-}
-</script>
-
-<table id="sortable-table" style="width: 100%;">
-  <thead>
-    <tr>
-      <th onclick="sortTable(0)" style="cursor: pointer; user-select: none;">
-        名称 ↓↑
-      </th>
-      <th onclick="sortTable(1)" style="cursor: pointer; user-select: none;">
-        价格 ↓↑
-      </th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>产品A</td><td>¥100</td><td>购买</td></tr>
-    <tr><td>产品B</td><td>¥200</td><td>购买</td></tr>
-  </tbody>
-</table>
+<p>表格样式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.table-modern &#123;</span><br><span class="line">  width: 100%;</span><br><span class="line">  border-collapse: collapse;</span><br><span class="line">  margin: 20px 0;</span><br><span class="line">  font-family: -apple-system, BlinkMacSystemFont, &#x27;Segoe UI&#x27;, Roboto, sans-serif;</span><br><span class="line">  font-size: 15px;</span><br><span class="line">  box-shadow: 0 2px 15px rgba(0,0,0,0.1); /* 加深阴影，增强在深色背景的层次感 */</span><br><span class="line">  border-radius: 8px;</span><br><span class="line">  overflow: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.table-modern th &#123;</span><br><span class="line">  background-color: #f0f2f5; /* 稍深的浅灰色背景，确保在深色背景下突出 */</span><br><span class="line">  padding: 16px 12px;</span><br><span class="line">  text-align: left;</span><br><span class="line">  font-weight: 600;</span><br><span class="line">  color: #222; /* 深色文字，确保可读性 */</span><br><span class="line">  border-bottom: 2px solid #e9ecef;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.table-modern td &#123;</span><br><span class="line">  background-color: #ffffff; /* 纯白背景，与深色背景形成对比 */</span><br><span class="line">  padding: 14px 12px;</span><br><span class="line">  border-bottom: 1px solid #e9ecef;</span><br><span class="line">  font-weight: 400;</span><br><span class="line">  color: #333; /* 深色文字 */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.table-modern tr:hover &#123;</span><br><span class="line">  background-color: #f5f7fa; /* 悬停时的浅灰色背景 */</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.table-modern caption &#123;</span><br><span class="line">  caption-side: top;</span><br><span class="line">  padding: 12px; /* 增加内边距 */</span><br><span class="line">  font-size: 16px;</span><br><span class="line">  font-weight: bold;</span><br><span class="line">  color: #222; /* 深色标题文字 */</span><br><span class="line">  font-size: 20px;</span><br><span class="line">  font-weight: 600;</span><br><span class="line">  background-color: #f0f2f5; /* 与表头一致的浅灰色 */</span><br><span class="line">  border-bottom: 2px solid #d9dde3; /* 添加底部边框作为分隔线 */</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
 <p> 带搜索的表格<br> <input type="text" id="table-search" placeholder="搜索表格内容..." 
        style="padding: 10px; width: 300px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;"></p>
@@ -363,18 +269,13 @@ function sortTable(columnIndex) {
     </tr>
   </tbody>
 </table>
-
 <script>
 document.getElementById('table-search').addEventListener('input', function(e) {
   const searchTerm = e.target.value.toLowerCase();
   const rows = document.querySelectorAll('#searchable-table tbody tr');
   
-  rows.forEach(row => {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(searchTerm) ? '' : 'none';
-  });
-});
-</script>
+<p>  rows.forEach(row &#x3D;&gt; {<br>    const text &#x3D; row.textContent.toLowerCase();<br>    row.style.display &#x3D; text.includes(searchTerm) ? ‘’ : ‘none’;<br>  });<br>});<br></script><br>表格样式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> &lt;input type=&quot;text&quot; id=&quot;table-search&quot; placeholder=&quot;搜索表格内容...&quot; </span><br><span class="line">       style=&quot;padding: 10px; width: 300px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">document.getElementById(&#x27;table-search&#x27;).addEventListener(&#x27;input&#x27;, function(e) &#123;</span><br><span class="line">  const searchTerm = e.target.value.toLowerCase();</span><br><span class="line">  const rows = document.querySelectorAll(&#x27;#searchable-table tbody tr&#x27;);</span><br><span class="line">  rows.forEach(row =&gt; &#123;</span><br><span class="line">    const text = row.textContent.toLowerCase();</span><br><span class="line">    row.style.display = text.includes(searchTerm) ? &#x27;&#x27; : &#x27;none&#x27;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <hr>
 <p>代码显示<br>行内代码<code>Console.WriteLine(&quot;Hajime&quot;);</code><br>代码块</p>
