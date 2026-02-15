@@ -27,11 +27,13 @@
 <meta property="og:site_name" content="Hajimeの部屋">
 <meta property="og:description" content="C# 单例模式目录 饿汉式单例 懒汉式单例 手动加锁机制 三种方式对比 Revit开发中的应用建议   一般来说，饿汉式就是在类加载时就立即创建类的实例，即在类的字段中直接创建对象的实例，然后通过一个public的属性暴露对象；他的特点时线程安全，但是在类加载的时候就会创建实例，所以一定会占用大量内存。懒汉式则不在类加载的时候就创建实例，而是在调用公共属性的get方法的时候才创建实例，不同的实现方">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tellmewhoami.github.io/image/logo.jpg">
 <meta property="article:published_time" content="2026-02-14T03:32:49.000Z">
-<meta property="article:modified_time" content="2026-02-14T04:00:34.447Z">
+<meta property="article:modified_time" content="2026-02-15T16:01:37.594Z">
 <meta property="article:author" content="Hajime">
 <meta property="article:tag" content="-编程学习">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tellmewhoami.github.io/image/logo.jpg">
   
   
   
@@ -47,7 +49,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hajime","sameAs":[]},"dateCreated":"2026-02-14T11:32:49+08:00","dateModified":"2026-02-14T12:00:34+08:00","datePublished":"2026-02-14T11:32:49+08:00","description":"","headline":"单例模式学习","mainEntityOfPage":{"@type":"WebPage","@id":"https://tellmewhoami.github.io/2026/02/14/CodingStudy-Single-Model/"},"publisher":{"@type":"Organization","name":"Hajime","sameAs":[]},"url":"https://tellmewhoami.github.io/2026/02/14/CodingStudy-Single-Model/","keywords":"-编程学习","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hajime","sameAs":[],"image":"\\image\\logo.jpg"},"dateCreated":"2026-02-14T11:32:49+08:00","dateModified":"2026-02-16T00:01:37+08:00","datePublished":"2026-02-14T11:32:49+08:00","description":"","headline":"单例模式学习","mainEntityOfPage":{"@type":"WebPage","@id":"https://tellmewhoami.github.io/2026/02/14/CodingStudy-Single-Model/"},"publisher":{"@type":"Organization","name":"Hajime","sameAs":[],"image":"\\image\\logo.jpg","logo":{"@type":"ImageObject","url":"\\image\\logo.jpg"}},"url":"https://tellmewhoami.github.io/2026/02/14/CodingStudy-Single-Model/","keywords":"-编程学习","image":[]}</script>
   
 </head>
 <body>
@@ -55,7 +57,7 @@
 <div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
 
 
-<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="undefined" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Hajimeの部屋</div></a></div></header>
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="\image\logo.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Hajimeの部屋</div><div class="sub cap">to do is to be</div></a></div></header>
 
 <div class="nav-area">
 
@@ -66,7 +68,7 @@
 
 
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/02/14/CodingStudy-Single-Model/"><span class="title">单例模式学习</span></a><a class="item title" href="/2026/01/31/Ai-Study/"><span class="title">Ai Study -- 基础概念</span></a><a class="item title" href="/2026/01/03/My-first-blog/"><span class="title">Markdown语法</span></a><a class="item title" href="/2025/12/28/hello-world/"><span class="title">Hello World</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/02/14/CodingStudy-Single-Model/"><span class="title">单例模式学习</span></a><a class="item title" href="/2026/01/03/My-first-blog/"><span class="title">Markdown语法</span></a><a class="item title" href="/2026/01/31/Ai-Study/"><span class="title">Ai Study -- 基础概念</span></a><a class="item title" href="/2025/12/28/hello-world/"><span class="title">Hello World</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
@@ -79,7 +81,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-02-14T03:32:49.000Z">2026-02-14</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-02-14T04:00:34.447Z">2026-02-14</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-02-14T03:32:49.000Z">2026-02-14</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-02-15T16:01:37.594Z">2026-02-16</time></span></div></div></div>
     
     <div class="bottom only-title">
       
