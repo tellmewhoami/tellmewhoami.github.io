@@ -1,0 +1,1006 @@
+
+<!DOCTYPE html><html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1" theme-name="Stellar" theme-version="1.33.1">
+  
+  
+  <meta name="generator" content="Hexo 8.1.1">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  <title>MathStudy20260222-数值计算方法 - Hajimeの部屋</title>
+
+  
+    <meta name="description" content="数值计算方法 感悟：工作之后，很多理论的东西都还给原来的老师了。所以现在需要从头开始一点点啃原来的知识点，虽然会很难，但是请务必加油！在年前已经完成了线性代数的一部分学习，现在我需要进行数值计算方法的相关学习，以下是我的学习笔记。网址：https:&#x2F;&#x2F;github.com&#x2F;copilot&#x2F;c&#x2F;08d2ed67-7275-46ea-87f9-93bc8289ca37 数值计算中常用的方法（按“思想&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MathStudy20260222-数值计算方法">
+<meta property="og:url" content="https://tellmewhoami.github.io/2026/02/22/MathStudy20260222/">
+<meta property="og:site_name" content="Hajimeの部屋">
+<meta property="og:description" content="数值计算方法 感悟：工作之后，很多理论的东西都还给原来的老师了。所以现在需要从头开始一点点啃原来的知识点，虽然会很难，但是请务必加油！在年前已经完成了线性代数的一部分学习，现在我需要进行数值计算方法的相关学习，以下是我的学习笔记。网址：https:&#x2F;&#x2F;github.com&#x2F;copilot&#x2F;c&#x2F;08d2ed67-7275-46ea-87f9-93bc8289ca37 数值计算中常用的方法（按“思想&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tellmewhoami.github.io/image/logo.jpg">
+<meta property="article:published_time" content="2026-02-22T07:32:05.000Z">
+<meta property="article:modified_time" content="2026-03-01T07:20:54.197Z">
+<meta property="article:author" content="Hajime">
+<meta property="article:tag" content="-数值计算方法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tellmewhoami.github.io/image/logo.jpg">
+  
+  
+  
+  <meta name="keywords" content="-数值计算方法">
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.33.1">
+
+
+  
+
+  
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Hajime","sameAs":[],"image":"\\image\\logo.jpg"},"dateCreated":"2026-02-22T15:32:05+08:00","dateModified":"2026-03-01T15:20:54+08:00","datePublished":"2026-02-22T15:32:05+08:00","description":"","headline":"MathStudy20260222-数值计算方法","mainEntityOfPage":{"@type":"WebPage","@id":"https://tellmewhoami.github.io/2026/02/22/MathStudy20260222/"},"publisher":{"@type":"Organization","name":"Hajime","sameAs":[],"image":"\\image\\logo.jpg","logo":{"@type":"ImageObject","url":"\\image\\logo.jpg"}},"url":"https://tellmewhoami.github.io/2026/02/22/MathStudy20260222/","keywords":"-数值计算方法","image":[]}</script>
+  
+</head>
+<body>
+
+<div class="l_body content" id="start" layout="post" type="tech" ><aside class="l_left"><div class="sidebg"></div><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="\image\logo.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main">Hajimeの部屋</div><div class="sub cap">to do is to be</div></a></div></header>
+
+<div class="nav-area">
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="站内搜索"></form><div id="search-result"></div><div class="search-no-result">没有找到内容！</div></div>
+
+
+
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/03/01/HistoryStudy20260301-5/"><span class="title">HistoryStudy20260301-5.md</span></a><a class="item title" href="/2026/03/01/OpenClaw20260301/"><span class="title">DailyStudy20260301-API设置</span></a><a class="item title" href="/2026/03/01/HistoryStudy20260301-4/"><span class="title">HistoryStudy20260301-1850 年一年期间世界发生了什么</span></a><a class="item title" href="/2026/03/01/HistoryStudy20260301-3/"><span class="title">HistoryStudy20260301-1850年中国大事记</span></a><a class="item title" href="/2026/03/01/HistoryStudy20260301-2/"><span class="title">HistoryStudy20260301-胜海舟</span></a><a class="item title" href="/2026/02/24/OpenClaw20260224/"><span class="title">OpenClaw20260224-Install&&炒股设置</span></a><a class="item title" href="/2026/02/22/MathStudy20260222/"><span class="title">MathStudy20260222-数值计算方法</span></a><a class="item title" href="/2026/02/22/DailyStudy20260222/"><span class="title">每日学习20260222-二分法</span></a><a class="item title" href="/2026/02/24/DailyStudy20260224/"><span class="title">DailyStudy20260224-Template Method</span></a><a class="item title" href="/2026/03/01/HistoryStudy20260301-1/"><span class="title">HistoryStudy20260301-哥伦布</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%95%B0%E5%AD%A6/">数学</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-02-22T07:32:05.000Z">2026-02-22</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-03-01T07:20:54.197Z">2026-03-01</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>MathStudy20260222-数值计算方法</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h1 id="数值计算方法"><a href="#数值计算方法" class="headerlink" title="数值计算方法"></a>数值计算方法</h1><hr>
+<p>感悟：工作之后，很多理论的东西都还给原来的老师了。所以现在需要从头开始一点点啃原来的知识点，虽然会很难，但是请务必加油！在年前已经完成了线性代数的一部分学习，现在我需要进行数值计算方法的相关学习，以下是我的学习笔记。<br>网址：<a target="_blank" rel="noopener" href="https://github.com/copilot/c/08d2ed67-7275-46ea-87f9-93bc8289ca37">https://github.com/copilot/c/08d2ed67-7275-46ea-87f9-93bc8289ca37</a></p>
+<h2 id="数值计算中常用的方法（按“思想-用途”分类）"><a href="#数值计算中常用的方法（按“思想-用途”分类）" class="headerlink" title="数值计算中常用的方法（按“思想&#x2F;用途”分类）"></a>数值计算中常用的方法（按“思想&#x2F;用途”分类）</h2><p>数值计算（Numerical Computation &#x2F; Numerical Analysis）是研究“用计算机在有限精度下，用可操作的算法去近似求解数学问题”的学科与方法体系。它关注的不是写出<strong>解析解</strong>（精确公式），而是当解析解难以得到或代价太高时，如何通过<strong>离散化、迭代、逼近</strong>等手段，计算出足够准确、可控误差的近似解。</p>
+<p>数值计算通常要同时考虑三件事：  </p>
+<ul>
+<li><strong>误差来源</strong>：模型&#x2F;离散误差、截断误差、舍入误差（浮点数精度导致）。  </li>
+<li><strong>稳定性</strong>：小的输入扰动或舍入误差会不会被算法放大。  </li>
+<li><strong>效率</strong>：时间复杂度、空间复杂度、收敛速度（迭代法尤其重要）。</li>
+</ul>
+<h3 id="1-近似替代法（逼近思想）"><a href="#1-近似替代法（逼近思想）" class="headerlink" title="1) 近似替代法（逼近思想）"></a>1) 近似替代法（逼近思想）</h3><p>核心：用“更容易计算的对象”替代原问题中的“难对象”，并控制误差。常见形式：</p>
+<ul>
+<li><strong>函数近似&#x2F;插值</strong>：用多项式、样条（spline）等逼近函数  <ul>
+<li>拉格朗日插值、牛顿插值  </li>
+<li>分段线性插值、三次样条插值</li>
+</ul>
+</li>
+<li><strong>多项式&#x2F;级数逼近</strong>：  <ul>
+<li>泰勒展开（在某点附近用多项式近似）  </li>
+<li>切比雪夫多项式逼近（常用于控制最大误差）</li>
+</ul>
+</li>
+<li><strong>数值积分（求面积&#x2F;期望）</strong>：把积分用加权求和替代  <ul>
+<li>梯形法、辛普森法  </li>
+<li>高斯求积</li>
+</ul>
+</li>
+<li><strong>数值微分</strong>：用差分替代导数  <ul>
+<li>前向差分、后向差分、中心差分（一般更准）</li>
+</ul>
+</li>
+</ul>
+<p>应用：当你要算 <code>sin(x)</code>、积分、导数、复杂函数值、物理&#x2F;工程中的连续模型时，近似替代几乎无处不在。</p>
+<hr>
+<h3 id="2-迭代法（逐步逼近解）"><a href="#2-迭代法（逐步逼近解）" class="headerlink" title="2) 迭代法（逐步逼近解）"></a>2) 迭代法（逐步逼近解）</h3><p>核心：把求解转化为“重复更新”，逐步逼近真实解，直到误差足够小。</p>
+<ul>
+<li><strong>求方程根</strong> <code>f(x)=0</code>：  <ul>
+<li>二分法（稳健但慢）  </li>
+<li>牛顿法（快但依赖初值与导数，可能不收敛）  </li>
+<li>割线法（不用导数，速度介于两者之间）</li>
+</ul>
+</li>
+<li><strong>解线性方程组</strong> <code>Ax=b</code>（大规模时常用迭代）：  <ul>
+<li>Jacobi、Gauss–Seidel、SOR  </li>
+<li>共轭梯度（CG，适合对称正定）  </li>
+<li>GMRES（更一般）</li>
+</ul>
+</li>
+</ul>
+<p>关键点：收敛条件、停止准则（残差&#x2F;相对误差）、迭代次数与计算代价。</p>
+<hr>
+<h3 id="3-离散化方法（把连续问题变成离散问题）"><a href="#3-离散化方法（把连续问题变成离散问题）" class="headerlink" title="3) 离散化方法（把连续问题变成离散问题）"></a>3) 离散化方法（把连续问题变成离散问题）</h3><p>核心：把微分方程、积分方程等连续模型，转成有限维的代数问题再求解。</p>
+<ul>
+<li><strong>常微分方程 ODE</strong>：  <ul>
+<li>欧拉法、改进欧拉法（Heun）  </li>
+<li>Runge–Kutta（如经典四阶 RK4）</li>
+</ul>
+</li>
+<li><strong>偏微分方程 PDE</strong>：  <ul>
+<li>有限差分法（FDM）  </li>
+<li>有限元法（FEM）  </li>
+<li>有限体积法（FVM）</li>
+</ul>
+</li>
+</ul>
+<p>关键点：网格大小（步长）与误差阶数、稳定性（例如显式方法的稳定步长限制）。</p>
+<hr>
+<h3 id="4-优化与最小二乘（把问题变成“最好”的那个）"><a href="#4-优化与最小二乘（把问题变成“最好”的那个）" class="headerlink" title="4) 优化与最小二乘（把问题变成“最好”的那个）"></a>4) 优化与最小二乘（把问题变成“最好”的那个）</h3><p>核心：很多计算问题可以写成最小化误差&#x2F;能量的形式。</p>
+<ul>
+<li><strong>最小二乘拟合</strong>：线性回归、曲线拟合  </li>
+<li><strong>无约束优化</strong>：梯度下降、牛顿法、拟牛顿（BFGS）  </li>
+<li><strong>约束优化</strong>：拉格朗日乘子、内点法（更高级）</li>
+</ul>
+<hr>
+<h3 id="5-线性代数数值方法（数值计算的“骨架”）"><a href="#5-线性代数数值方法（数值计算的“骨架”）" class="headerlink" title="5) 线性代数数值方法（数值计算的“骨架”）"></a>5) 线性代数数值方法（数值计算的“骨架”）</h3><p>大量工程计算最终都落到矩阵运算上。</p>
+<ul>
+<li><strong>矩阵分解</strong>：LU、QR、Cholesky、SVD  </li>
+<li><strong>特征值问题</strong>：幂迭代、QR 算法  </li>
+<li><strong>病态性与条件数</strong>：衡量问题对扰动敏感程度；决定你能“算多准”。</li>
+</ul>
+<hr>
+<h3 id="6-随机-采样方法（当维度高或模型复杂）"><a href="#6-随机-采样方法（当维度高或模型复杂）" class="headerlink" title="6) 随机&#x2F;采样方法（当维度高或模型复杂）"></a>6) 随机&#x2F;采样方法（当维度高或模型复杂）</h3><ul>
+<li><strong>蒙特卡洛积分</strong>（高维积分常用）  </li>
+<li><strong>随机优化&#x2F;采样</strong>：MCMC（更偏统计计算）</li>
+</ul>
+<hr>
+<h1 id="数值计算误差"><a href="#数值计算误差" class="headerlink" title="数值计算误差"></a>数值计算误差</h1><h2 id="1-什么是“误差”"><a href="#1-什么是“误差”" class="headerlink" title="1) 什么是“误差”"></a>1) 什么是“误差”</h2><p>在数值计算里，**误差（error）**通常指“真实值”和“近似值&#x2F;计算值”的差异。</p>
+<p>设真实值为 (x)，近似值为 (\tilde x)，则  </p>
+<ul>
+<li><strong>绝对误差</strong>：[<br>e_a &#x3D; |\tilde x - x|<br>]</li>
+<li><strong>相对误差</strong>：[<br>e_r &#x3D; \frac{|\tilde x - x|}{|x|}\quad(x\neq 0)<br>]</li>
+<li><strong>百分相对误差</strong>：(100% \times e_r)</li>
+</ul>
+<p>补充：有时也看“<strong>残差</strong>”（residual），它不是误差本身，但常用于估计误差。例如解方程 (f(x)&#x3D;0) 得到近似解 (\tilde x)，残差为 (r&#x3D;f(\tilde x))。</p>
+<hr>
+<h2 id="2-数值计算误差的来源与分类（最常用的框架）"><a href="#2-数值计算误差的来源与分类（最常用的框架）" class="headerlink" title="2) 数值计算误差的来源与分类（最常用的框架）"></a>2) 数值计算误差的来源与分类（最常用的框架）</h2><p>数值误差常被分成以下几类（对应来源也很清晰）：</p>
+<h3 id="A-模型误差（Modeling-error）"><a href="#A-模型误差（Modeling-error）" class="headerlink" title="A. 模型误差（Modeling error）"></a>A. 模型误差（Modeling error）</h3><p><strong>来源</strong>：真实世界问题被数学模型简化&#x2F;假设导致偏差。<br><strong>例子</strong>：忽略空气阻力、把非线性材料当作线性、用常系数近似变系数。</p>
+<blockquote>
+<p>模型误差通常不属于“算法本身”的误差，但在工程中往往最大。</p>
+</blockquote>
+<h3 id="B-数据-测量误差（Data-Measurement-error）"><a href="#B-数据-测量误差（Data-Measurement-error）" class="headerlink" title="B. 数据&#x2F;测量误差（Data &#x2F; Measurement error）"></a>B. 数据&#x2F;测量误差（Data &#x2F; Measurement error）</h3><p><strong>来源</strong>：输入数据本身不精确（测量噪声、采样误差、记录精度）。<br><strong>例子</strong>：传感器读数只有 0.01 精度；初始条件有噪声。</p>
+<h3 id="C-截断误差（Truncation-error）"><a href="#C-截断误差（Truncation-error）" class="headerlink" title="C. 截断误差（Truncation error）"></a>C. 截断误差（Truncation error）</h3><p><strong>来源</strong>：把无限过程用有限过程替代（截断级数、截断迭代、用差分近似导数）。<br><strong>典型场景</strong>：  </p>
+<ul>
+<li>泰勒展开只保留前几项  </li>
+<li>数值积分把连续积分改成有限求和  </li>
+<li>ODE 用步长 (h) 的方法近似（误差随 (h) 变化）</li>
+</ul>
+<p>截断误差常与“<strong>方法的阶</strong>”相关：例如某方法误差是 (O(h^2))，意味着步长减半，误差大约缩小到原来的 (1&#x2F;4)。</p>
+<h3 id="D-舍入误差（Round-off-error，浮点误差）"><a href="#D-舍入误差（Round-off-error，浮点误差）" class="headerlink" title="D. 舍入误差（Round-off error，浮点误差）"></a>D. 舍入误差（Round-off error，浮点误差）</h3><p><strong>来源</strong>：计算机用有限位数表示实数（IEEE 浮点），每次运算都可能产生舍入。<br><strong>典型现象</strong>：  </p>
+<ul>
+<li><strong>吸收（absorption）</strong>：大数 + 很小的数，小数被“吃掉”  </li>
+<li><strong>灾难性消去（catastrophic cancellation）</strong>：两个很接近的数相减导致有效位数大量丢失  </li>
+<li><strong>误差累积&#x2F;传播</strong>：大量运算后舍入误差积累并被放大</li>
+</ul>
+<h3 id="E-算法误差-迭代误差（Iteration-algorithmic-error）"><a href="#E-算法误差-迭代误差（Iteration-algorithmic-error）" class="headerlink" title="E. 算法误差&#x2F;迭代误差（Iteration &#x2F; algorithmic error）"></a>E. 算法误差&#x2F;迭代误差（Iteration &#x2F; algorithmic error）</h3><p><strong>来源</strong>：迭代法提前停止，或算法本身近似。<br><strong>例子</strong>：牛顿法只迭代 5 次；线性方程组迭代法残差未充分小。</p>
+<h3 id="F-离散化误差（Discretization-error）"><a href="#F-离散化误差（Discretization-error）" class="headerlink" title="F. 离散化误差（Discretization error）"></a>F. 离散化误差（Discretization error）</h3><p>很多教材把它作为截断误差的一部分，但在微分方程数值解里常单独强调：<br><strong>来源</strong>：连续问题（函数、导数、积分、PDE）→ 网格&#x2F;节点上的离散问题。<br><strong>例子</strong>：用网格间距 (h) 代替连续空间。</p>
+<hr>
+<h2 id="3-误差的进一步常用“分类口径”"><a href="#3-误差的进一步常用“分类口径”" class="headerlink" title="3) 误差的进一步常用“分类口径”"></a>3) 误差的进一步常用“分类口径”</h2><h3 id="1-绝对误差-vs-相对误差"><a href="#1-绝对误差-vs-相对误差" class="headerlink" title="(1) 绝对误差 vs 相对误差"></a>(1) 绝对误差 vs 相对误差</h3><p>上面已给出。相对误差更能反映“精度占比”，但当 (x) 接近 0 时不稳定。</p>
+<h3 id="2-前向误差-vs-后向误差（重要）"><a href="#2-前向误差-vs-后向误差（重要）" class="headerlink" title="(2) 前向误差 vs 后向误差（重要）"></a>(2) 前向误差 vs 后向误差（重要）</h3><ul>
+<li><strong>前向误差（forward error）</strong>：输出值离真实输出有多远<br>[<br>|\tilde y - y|<br>]</li>
+<li><strong>后向误差（backward error）</strong>：等价于“输入数据改动多少，才能让算法输出变成精确解”<br>例如：你算的是 (\tilde y &#x3D; f(\tilde x))，能否解释为“(\tilde x &#x3D; x + \delta x)”使得 (\tilde y &#x3D; f(x+\delta x)) 恰好成立。</li>
+</ul>
+<p>后向误差经常用来讨论<strong>数值稳定性</strong>：  </p>
+<ul>
+<li><strong>后向稳定</strong>：算法输出等价于对输入做了很小扰动后的精确结果（通常被认为是好算法）。</li>
+</ul>
+<h3 id="3-随机误差-vs-系统误差（更多用于数据-测量）"><a href="#3-随机误差-vs-系统误差（更多用于数据-测量）" class="headerlink" title="(3) 随机误差 vs 系统误差（更多用于数据&#x2F;测量）"></a>(3) 随机误差 vs 系统误差（更多用于数据&#x2F;测量）</h3><ul>
+<li>系统误差：有偏差（总是偏大&#x2F;偏小）  </li>
+<li>随机误差：围绕真值随机波动</li>
+</ul>
+<hr>
+<h2 id="4-什么是“有效数字”（significant-digits）"><a href="#4-什么是“有效数字”（significant-digits）" class="headerlink" title="4) 什么是“有效数字”（significant digits）"></a>4) 什么是“有效数字”（significant digits）</h2><p><strong>有效数字</strong>用于描述一个近似值中“可信的数字位数”。</p>
+<p>直观理解：近似值 (\tilde x) 中，从第一个非零数字开始，连续有多少位是可靠的。</p>
+<p>更“数值分析式”的定义常用相对误差来刻画：<br>如果 (\tilde x) 近似 (x) 满足<br>[<br>\frac{|\tilde x-x|}{|x|} \le 0.5\times 10^{-t},<br>]<br>则说 (\tilde x) 至少有 <strong>(t) 位十进制有效数字</strong>。</p>
+<p>例：若相对误差 (\le 5\times 10^{-4})，则有约 3 位有效数字（因为 (0.5\times 10^{-3}&#x3D;5\times 10^{-4})）。</p>
+<p>相关概念：  </p>
+<ul>
+<li><strong>正确位数</strong>：也常用类似方式定义（不同教材系数可能略有差异）。  </li>
+<li><strong>有效位数丢失</strong>：灾难性消去会显著降低有效数字。</li>
+</ul>
+<hr>
+<h2 id="5-什么是“误差估计”（error-estimation）"><a href="#5-什么是“误差估计”（error-estimation）" class="headerlink" title="5) 什么是“误差估计”（error estimation）"></a>5) 什么是“误差估计”（error estimation）</h2><p><strong>误差估计</strong>指：在真值 (x) 不可得的情况下，用可计算的信息去<strong>评估或界定</strong>误差的大小，典型目标是得到：</p>
+<ul>
+<li><strong>误差上界</strong>（保证型）：( |\tilde x - x| \le \text{bound})</li>
+<li><strong>误差近似量</strong>（经验型&#x2F;渐近型）：( |\tilde x - x| \approx \text{estimate})</li>
+</ul>
+<p>常见误差估计思路（非常核心）：</p>
+<h3 id="A-先验误差估计（a-priori）"><a href="#A-先验误差估计（a-priori）" class="headerlink" title="A) 先验误差估计（a priori）"></a>A) 先验误差估计（a priori）</h3><p>在计算前，根据理论推导给出误差与参数（如步长 (h)、截断阶数 (n)）的关系。<br>例：梯形积分法误差 (\sim O(h^2))，可在选步长前预测精度等级。</p>
+<h3 id="B-后验误差估计（a-posteriori）"><a href="#B-后验误差估计（a-posteriori）" class="headerlink" title="B) 后验误差估计（a posteriori）"></a>B) 后验误差估计（a posteriori）</h3><p>计算后，利用结果本身（或两次计算的差异）估计误差。常���方法：</p>
+<ul>
+<li><strong>网格&#x2F;步长加密对比</strong>：用 (h) 与 (h&#x2F;2) 两个结果差来估误差（Richardson 外推思想）  </li>
+<li><strong>迭代差</strong>：迭代法中用 (|x_{k+1}-x_k|) 或残差来估计当前误差  </li>
+<li><strong>残差-误差关系</strong>：在某些问题里能把残差转换为误差界（例如线性方程组、某些 PDE 离散）</li>
+</ul>
+<h3 id="C-用“残差”做误差估计（常见但需条件）"><a href="#C-用“残差”做误差估计（常见但需条件）" class="headerlink" title="C) 用“残差”做误差估计（常见但需条件）"></a>C) 用“残差”做误差估计（常见但需条件）</h3><ul>
+<li>对 (Ax&#x3D;b)：残差 (r&#x3D;b-A\tilde x)。在合适范数下，有<br>[<br>|\tilde x-x| \le |A^{-1}|\cdot |r|<br>]<br>这给出一种从残差到误差的上界（��需要了解&#x2F;估计 (|A^{-1}|)，与条件数有关）。</li>
+<li>对求根 (f(x)&#x3D;0)：如果 (f) 在根附近光滑且 (f’(x)) 不太小，常有近似<br>[<br>|\tilde x - x| \approx \frac{|f(\tilde x)|}{|f’(\tilde x)|}<br>]<br>这把残差 (f(\tilde x)) 转成误差量级（是近似估计，不一定严格上界）。</li>
+</ul>
+<hr>
+<h2 id="6-小结（你可以用来背-做笔记）"><a href="#6-小结（你可以用来背-做笔记）" class="headerlink" title="6) 小结（你可以用来背&#x2F;做笔记）"></a>6) 小结（你可以用来背&#x2F;做笔记）</h2><ul>
+<li><strong>误差</strong>：真值与近似值差；常用绝对&#x2F;相对误差表示。  </li>
+<li><strong>来源</strong>：模型、数据、截断&#x2F;离散化、舍入、迭代停止等。  </li>
+<li><strong>有效数字</strong>：用相对误差阈值刻画近似值可信位数。  </li>
+<li><strong>误差估计</strong>：在未知真值时，通过理论（先验）或计算结果&#x2F;残差&#x2F;网格加密（后验）给出误差界或误差量级。</li>
+</ul>
+<hr>
+<h1 id="数值计算中需要注意的问题"><a href="#数值计算中需要注意的问题" class="headerlink" title="数值计算中需要注意的问题"></a>数值计算中需要注意的问题</h1><p>在数值计算中，由于原始数据的误差，必然导致计算结果的差异，如果原始数据有扰动，但在误差传播过程中舍入误差能够控制，就称这种算法为数值稳定的；否者就是不稳定的。为了优化算法需要注意以下问题：</p>
+<ol>
+<li>利用近似公式计算时，要注意收敛速度，讲究效率;</li>
+<li>避免大数吃小数的情况；</li>
+<li>先化简再计算，尽量减少运算步骤，避免误差累计；</li>
+<li>应小心处理病态的数学问题；</li>
+<li>设法控制误差的传播；</li>
+</ol>
+</article>
+<div class="article-footer">
+    <section id="license">
+      <div class="header"><span>许可协议</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+
+</div>
+
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">较新文章</div><a href="/2026/02/22/DailyStudy20260222/">每日学习20260222-二分法</a></div><div class="item" id="next"><div class="note">较早文章</div><a href="/2026/02/14/CodingStudy-Single-Model/">单例模式学习</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Hajime</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.33.1">Stellar 1.33.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">本文目录</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95"><span class="toc-text">数值计算方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88%E6%8C%89%E2%80%9C%E6%80%9D%E6%83%B3-%E7%94%A8%E9%80%94%E2%80%9D%E5%88%86%E7%B1%BB%EF%BC%89"><span class="toc-text">数值计算中常用的方法（按“思想&#x2F;用途”分类）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%BF%91%E4%BC%BC%E6%9B%BF%E4%BB%A3%E6%B3%95%EF%BC%88%E9%80%BC%E8%BF%91%E6%80%9D%E6%83%B3%EF%BC%89"><span class="toc-text">1) 近似替代法（逼近思想）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%BF%AD%E4%BB%A3%E6%B3%95%EF%BC%88%E9%80%90%E6%AD%A5%E9%80%BC%E8%BF%91%E8%A7%A3%EF%BC%89"><span class="toc-text">2) 迭代法（逐步逼近解）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%A6%BB%E6%95%A3%E5%8C%96%E6%96%B9%E6%B3%95%EF%BC%88%E6%8A%8A%E8%BF%9E%E7%BB%AD%E9%97%AE%E9%A2%98%E5%8F%98%E6%88%90%E7%A6%BB%E6%95%A3%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-text">3) 离散化方法（把连续问题变成离散问题）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%BC%98%E5%8C%96%E4%B8%8E%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%EF%BC%88%E6%8A%8A%E9%97%AE%E9%A2%98%E5%8F%98%E6%88%90%E2%80%9C%E6%9C%80%E5%A5%BD%E2%80%9D%E7%9A%84%E9%82%A3%E4%B8%AA%EF%BC%89"><span class="toc-text">4) 优化与最小二乘（把问题变成“最好”的那个）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%95%B0%E5%80%BC%E6%96%B9%E6%B3%95%EF%BC%88%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E7%9A%84%E2%80%9C%E9%AA%A8%E6%9E%B6%E2%80%9D%EF%BC%89"><span class="toc-text">5) 线性代数数值方法（数值计算的“骨架”）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%9A%8F%E6%9C%BA-%E9%87%87%E6%A0%B7%E6%96%B9%E6%B3%95%EF%BC%88%E5%BD%93%E7%BB%B4%E5%BA%A6%E9%AB%98%E6%88%96%E6%A8%A1%E5%9E%8B%E5%A4%8D%E6%9D%82%EF%BC%89"><span class="toc-text">6) 随机&#x2F;采样方法（当维度高或模型复杂）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E8%AF%AF%E5%B7%AE"><span class="toc-text">数值计算误差</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%AF%AF%E5%B7%AE%E2%80%9D"><span class="toc-text">1) 什么是“误差”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E8%AF%AF%E5%B7%AE%E7%9A%84%E6%9D%A5%E6%BA%90%E4%B8%8E%E5%88%86%E7%B1%BB%EF%BC%88%E6%9C%80%E5%B8%B8%E7%94%A8%E7%9A%84%E6%A1%86%E6%9E%B6%EF%BC%89"><span class="toc-text">2) 数值计算误差的来源与分类（最常用的框架）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-%E6%A8%A1%E5%9E%8B%E8%AF%AF%E5%B7%AE%EF%BC%88Modeling-error%EF%BC%89"><span class="toc-text">A. 模型误差（Modeling error）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%95%B0%E6%8D%AE-%E6%B5%8B%E9%87%8F%E8%AF%AF%E5%B7%AE%EF%BC%88Data-Measurement-error%EF%BC%89"><span class="toc-text">B. 数据&#x2F;测量误差（Data &#x2F; Measurement error）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E6%88%AA%E6%96%AD%E8%AF%AF%E5%B7%AE%EF%BC%88Truncation-error%EF%BC%89"><span class="toc-text">C. 截断误差（Truncation error）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#D-%E8%88%8D%E5%85%A5%E8%AF%AF%E5%B7%AE%EF%BC%88Round-off-error%EF%BC%8C%E6%B5%AE%E7%82%B9%E8%AF%AF%E5%B7%AE%EF%BC%89"><span class="toc-text">D. 舍入误差（Round-off error，浮点误差）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#E-%E7%AE%97%E6%B3%95%E8%AF%AF%E5%B7%AE-%E8%BF%AD%E4%BB%A3%E8%AF%AF%E5%B7%AE%EF%BC%88Iteration-algorithmic-error%EF%BC%89"><span class="toc-text">E. 算法误差&#x2F;迭代误差（Iteration &#x2F; algorithmic error）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#F-%E7%A6%BB%E6%95%A3%E5%8C%96%E8%AF%AF%E5%B7%AE%EF%BC%88Discretization-error%EF%BC%89"><span class="toc-text">F. 离散化误差（Discretization error）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AF%AF%E5%B7%AE%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E5%B8%B8%E7%94%A8%E2%80%9C%E5%88%86%E7%B1%BB%E5%8F%A3%E5%BE%84%E2%80%9D"><span class="toc-text">3) 误差的进一步常用“分类口径”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%BB%9D%E5%AF%B9%E8%AF%AF%E5%B7%AE-vs-%E7%9B%B8%E5%AF%B9%E8%AF%AF%E5%B7%AE"><span class="toc-text">(1) 绝对误差 vs 相对误差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%89%8D%E5%90%91%E8%AF%AF%E5%B7%AE-vs-%E5%90%8E%E5%90%91%E8%AF%AF%E5%B7%AE%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="toc-text">(2) 前向误差 vs 后向误差（重要）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%9A%8F%E6%9C%BA%E8%AF%AF%E5%B7%AE-vs-%E7%B3%BB%E7%BB%9F%E8%AF%AF%E5%B7%AE%EF%BC%88%E6%9B%B4%E5%A4%9A%E7%94%A8%E4%BA%8E%E6%95%B0%E6%8D%AE-%E6%B5%8B%E9%87%8F%EF%BC%89"><span class="toc-text">(3) 随机误差 vs 系统误差（更多用于数据&#x2F;测量）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E6%9C%89%E6%95%88%E6%95%B0%E5%AD%97%E2%80%9D%EF%BC%88significant-digits%EF%BC%89"><span class="toc-text">4) 什么是“有效数字”（significant digits）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AF%E2%80%9C%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1%E2%80%9D%EF%BC%88error-estimation%EF%BC%89"><span class="toc-text">5) 什么是“误差估计”（error estimation）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-%E5%85%88%E9%AA%8C%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1%EF%BC%88a-priori%EF%BC%89"><span class="toc-text">A) 先验误差估计（a priori）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E5%90%8E%E9%AA%8C%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1%EF%BC%88a-posteriori%EF%BC%89"><span class="toc-text">B) 后验误差估计（a posteriori）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-%E7%94%A8%E2%80%9C%E6%AE%8B%E5%B7%AE%E2%80%9D%E5%81%9A%E8%AF%AF%E5%B7%AE%E4%BC%B0%E8%AE%A1%EF%BC%88%E5%B8%B8%E8%A7%81%E4%BD%86%E9%9C%80%E6%9D%A1%E4%BB%B6%EF%BC%89"><span class="toc-text">C) 用“残差”做误差估计（常见但需条件）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BD%A0%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E8%83%8C-%E5%81%9A%E7%AC%94%E8%AE%B0%EF%BC%89"><span class="toc-text">6) 小结（你可以用来背&#x2F;做笔记）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%AE%A1%E7%AE%97%E4%B8%AD%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">数值计算中需要注意的问题</span></a></li></ol></div><div class="widget-footer"><a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Solar by 480 Design - https://creativecommons.org/licenses/by/4.0/ --><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"><path stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/><path d="M7 3.338A9.95 9.95 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12c0-1.821.487-3.53 1.338-5"/></g></svg><span>回到顶部</span></a></div></widget>
+</div></aside><div class='float-panel'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+
+
+<script type="text/javascript">
+  window.canonical = {"originalHost":null,"officialHosts":["localhost"],"encoded":""};
+  const ctx = {
+    date_suffix: {
+      just: `刚刚`,
+      min: `分钟前`,
+      hour: `小时前`,
+      day: `天前`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+    loading: `https://api.iconify.design/eos-icons:three-dots-loading.svg?color=%231cd0fd`,
+  };
+  const deps = {
+    jquery: `https://gcore.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js`,
+    marked: `https://gcore.jsdelivr.net/npm/marked@13.0/lib/marked.umd.min.js`,
+    lazyload: `/%5Bobject%20Object%5D`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      const maxRetry = 3;
+      let retryCount = 0;
+
+      return new Promise((resolve, reject) => {
+        const load = () => {
+          utils.onLoading?.(el);
+
+          let timedOut = false;
+          const timeout = setTimeout(() => {
+            timedOut = true;
+            console.warn('[request] 超时:', url);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject('请求超时');
+            } else {
+              setTimeout(load, 1000);
+            }
+          }, 5000);
+
+          fetch(url).then(resp => {
+            if (timedOut) return;
+            clearTimeout(timeout);
+
+            if (!resp.ok) throw new Error('响应失败');
+            return resp;
+          }).then(data => {
+            if (timedOut) return;
+            utils.onLoadSuccess?.(el);
+            callback(data);
+            resolve(data);
+          }).catch(err => {
+            clearTimeout(timeout);
+            console.warn('[request] 错误:', err);
+
+            if (++retryCount >= maxRetry) {
+              utils.onLoadFailure?.(el);
+              onFailure?.();
+              reject(err);
+            } else {
+              setTimeout(load, 1000);
+            }
+          });
+        };
+
+        load();
+      });
+    },
+    requestWithoutLoading: (url, options = {}, maxRetry = 2, timeout = 5000) => {
+      return new Promise((resolve, reject) => {
+        let retryCount = 0;
+
+        const tryRequest = () => {
+          let timedOut = false;
+          const timer = setTimeout(() => {
+            timedOut = true;
+            if (++retryCount > maxRetry) reject('timeout');
+            else tryRequest();
+          }, timeout);
+
+          fetch(url, options)
+            .then(resp => {
+              clearTimeout(timer);
+              if (!resp.ok) throw new Error('bad response');
+              resolve(resp);
+            })
+            .catch(err => {
+              clearTimeout(timer);
+              if (++retryCount > maxRetry) reject(err);
+              else setTimeout(tryRequest, 500);
+            });
+        };
+
+        tryRequest();
+      });
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+<script async src="https://gcore.jsdelivr.net/npm/vanilla-lazyload@19.1/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+    callback_loaded: (el) => {
+      el.classList.add('loaded');
+      const wrapper = el.closest('.lazy-box');
+      const icon = wrapper?.querySelector('.lazy-icon');
+      if (icon) icon.remove();
+    }
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+
+  window.wrapLazyloadImages = (container) => {
+    if (typeof container === 'string') {
+      container = document.querySelector(container);
+    }
+    if (!container) return;
+    
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      if (img.classList.contains('lazy')) return;
+
+      const src = img.getAttribute('src');
+      if (!src) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'lazy-box';
+
+      const newImg = img.cloneNode();
+      newImg.removeAttribute('src');
+      newImg.setAttribute('data-src', src);
+      newImg.classList.add('lazy');
+
+      const icon = document.createElement('div');
+      icon.className = 'lazy-icon';
+      if (def.loading) {
+        icon.style.backgroundImage = `url("${def.loading}")`;
+      }
+
+      wrapper.appendChild(newImg);
+      wrapper.appendChild(icon);
+
+      img.replaceWith(wrapper);
+    });
+
+    // 通知 LazyLoad 更新
+    if (window.lazyLoadInstance?.update) {
+      window.lazyLoadInstance.update();
+    }
+  }
+  
+</script>
+
+<!-- required -->
+<script src="/js/main.js?v=1.33.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    // applyThemeToGiscus(theme)
+  }
+
+  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
+  const applyThemeToGiscus = (theme) => {
+    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `切换到浅色模式`,
+      dark: `切换到深色模式`,
+      auto: `切换到跟随系统配色`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"rating":{"js":"/js/services/rating.js","api":"https://star-vote.xaox.cc/api/rating"},"vote":{"js":"/js/services/vote.js","api":"https://star-vote.xaox.cc/api/vote"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"friends_and_posts":{"js":"/js/services/friends_and_posts.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"},"contributors":{"edit_this_page":{"_posts/":null,"wiki/stellar/":"https://github.com/xaoxuu/hexo-theme-stellar-docs/blob/main/"},"js":"/js/services/contributors.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://gcore.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://gcore.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error), .with-fancybox .atk-content img:not([atk-emoticon])';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const memos = document.getElementsByClassName('ds-memos');
+    if (memos != undefined && memos.length > 0) {
+      needFancybox = true;
+    }
+    const fancybox = document.getElementsByClassName('with-fancybox');
+    if (fancybox != undefined && fancybox.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>
